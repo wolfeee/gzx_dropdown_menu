@@ -65,23 +65,20 @@ class _GZXDropDownMenuState extends State<GZXDropDownMenu> with SingleTickerProv
     _isShowDropDownItemWidget = widget.controller.isShow;
     _isShowMask = widget.controller.isShow;
 
-    _animation = new Tween(begin: 0.0, end: widget.menus[menuIndex].dropDownHeight).animate(_controller)
-      ..addListener(() {
-        //这行如果不写，没有动画效果
-        setState(() {});
-      });
+    double curHeight = _animation == null ? 0 : _animation.value;
+    double targetHeight = _isShowDropDownItemWidget ? widget.menus[menuIndex].dropDownHeight : 0;
+    _animation = new Tween(begin: curHeight, end: targetHeight).animate(_controller)..addListener(
+        () {
+          setState(() {});
+        }
+    );
 
     if (_isControllerDisposed) return;
-
-    if (_animation.status == AnimationStatus.completed) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
+    _controller.reset();
+    _controller.forward();
   }
 
   _hideDropDownItemWidget() {
-    print("_hideDropDownItemWidget");
     _isShowDropDownItemWidget = !_isShowDropDownItemWidget;
     _isShowMask = !_isShowMask;
     _controller.reverse();

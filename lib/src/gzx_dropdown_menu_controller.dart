@@ -17,4 +17,8 @@ class GZXDropdownMenuController extends ChangeNotifier {
     isShow=false;
     notifyListeners();
   }
+
+  void refresh() {
+    notifyListeners();
+  }
 }
