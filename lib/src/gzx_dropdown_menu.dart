@@ -117,7 +117,7 @@ class _GZXDropDownMenuState extends State<GZXDropDownMenu> with SingleTickerProv
         child: Column(
           children: <Widget>[
             Container(
-              color: Colors.white,
+              color: Theme.of(context).dialogBackgroundColor,
               width: MediaQuery.of(context).size.width,
               height: _animation == null ? 0 : _animation.value,
               child: widget.menus[menuIndex].dropDownWidget,
